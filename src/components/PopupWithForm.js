@@ -5,7 +5,7 @@ function PopupWithForm(props) {
         <h2 className="popup__title">{props.title}</h2>
         <form className="popup__form" name={`${props.name}Form`} noValidate>
           {props.children}
-          <button type="submit" aria-label={`Кнопка ${props.submitText} формы`} className="popup__submit-button">
+          <button type="submit" aria-label={`Кнопка ${props.labelText}`} className="popup__submit-button">
             {props.buttonText}</button>
         </form>
         <button type="button" aria-label="Кнопка закрытия окна" className="popup__close-button fade-opacity"></button>

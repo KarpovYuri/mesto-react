@@ -8,7 +8,7 @@ function handleEditAvatarClick() {
 
 
 function handleEditProfileClick() {
-  const popup = document.querySelector('#popup-edit');
+  const popup = document.querySelector('#popup-profile');
   popup.classList.add('popup_opened');
 }
 
