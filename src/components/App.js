@@ -1,35 +1,17 @@
-import avatar from './images/avatar.jpg';
-import './index.css';
+import '../index.css';
+import Header from '../components/Header';
+import Main from '../components/Main';
+import Footer from '../components/Footer';
 
 function App() {
   return (
     <div className="page">
 
-      <header className="header">
-        <a href="#" aria-label="Логотип Mesto Russia" className="header__logo fade-opacity"></a>
-      </header>
+      <Header />
 
-      <main>
+      <Main />
 
-        <section className="profile">
-          <div className="profile__avatar-edit">
-            <img src={avatar} alt="Аватар" className="profile__avatar" />
-            <button type="button" aria-label="Кнопка редактирования Аватара" className="profile__avatar-button"></button>
-          </div>
-          <div className="profile__info">
-            <h1 className="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" aria-label="Кнопка редактирования профиля"
-              className="profile__edit-button fade-opacity"></button>
-          </div>
-          <p className="profile__about">Исследователь океана</p>
-          <button type="button" aria-label="Кнопка добавления карточки" className="profile__add-button fade-opacity"></button>
-        </section>
-
-        <section className="cards"></section>
-
-      </main>
-
-      <footer className="footer">&copy; 2022 Карпов Юрий</footer>
+      <Footer />
 
       <article className="popup" id="popup-edit">
         <div className="popup__container popup__container_show_form">
