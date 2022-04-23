@@ -27,6 +27,14 @@ function App() {
     setAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+
+  function closeAllPopups() {
+    setEditAvatarPopupOpen(false);
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+  }
+
+
   return (
     <div className="page">
 
@@ -43,7 +51,8 @@ function App() {
         title="Редактировать профиль"
         labelText="сохранения данных профиля"
         buttonText="Сохранить"
-        isOpen={isEditProfilePopupOpen}>
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}>
         <input type="text" placeholder="Имя" className="popup__field" id="nameInput" name="name" required minLength="2"
           maxLength="40" />
         <span className="popup__input-error nameInput-error"></span>
@@ -57,7 +66,8 @@ function App() {
         title="Обновить аватар"
         labelText="сохранения аватара"
         buttonText="Сохранить"
-        isOpen={isEditAvatarPopupOpen}>
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}>
         <input type="url" placeholder="Ссылка на аватар" className="popup__field" id="avatarInput" name="avatar" required />
         <span className="popup__input-error avatarInput-error"></span>
       </PopupWhithForm >
@@ -67,7 +77,8 @@ function App() {
         title="Новое место"
         labelText="создания карточки"
         buttonText="Создать"
-        isOpen={isAddPlacePopupOpen}>
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}>
         <input type="text" placeholder="Название" className="popup__field" id="titleInput" name="name" required
           minLength="2" maxLength="30" />
         <span className="popup__input-error titleInput-error"></span>
@@ -76,7 +87,12 @@ function App() {
         <span className="popup__input-error pictureInput-error"></span>
       </PopupWhithForm >
 
-      <PopupWhithForm name="delete" title="Вы уверены?" labelText="подтверждения удаления карточки" buttonText="Да" />
+      <PopupWhithForm
+        name="delete"
+        title="Вы уверены?"
+        labelText="подтверждения удаления карточки"
+        buttonText="Да"
+        onClose={closeAllPopups} />
 
       <template id="card-template">
         <div className="card">
