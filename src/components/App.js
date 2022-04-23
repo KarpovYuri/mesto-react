@@ -1,3 +1,4 @@
+import React from "react";
 import '../index.css';
 import Header from '../components/Header';
 import Main from '../components/Main';
@@ -7,12 +8,31 @@ import PopupWhithForm from '../components/PopupWithForm';
 
 
 function App() {
+
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+
+  function handleEditProfileClick() {
+    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+
+  function handleAddPlaceClick() {
+    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
   return (
     <div className="page">
 
       <Header />
 
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleAddPlaceClick} />
 
       <Footer />
 
@@ -22,7 +42,8 @@ function App() {
         name="profile"
         title="Редактировать профиль"
         labelText="сохранения данных профиля"
-        buttonText="Сохранить">
+        buttonText="Сохранить"
+        isOpen={isEditProfilePopupOpen}>
         <input type="text" placeholder="Имя" className="popup__field" id="nameInput" name="name" required minLength="2"
           maxLength="40" />
         <span className="popup__input-error nameInput-error"></span>
@@ -35,7 +56,8 @@ function App() {
         name="avatar"
         title="Обновить аватар"
         labelText="сохранения аватара"
-        buttonText="Сохранить">
+        buttonText="Сохранить"
+        isOpen={isEditAvatarPopupOpen}>
         <input type="url" placeholder="Ссылка на аватар" className="popup__field" id="avatarInput" name="avatar" required />
         <span className="popup__input-error avatarInput-error"></span>
       </PopupWhithForm >
@@ -44,7 +66,8 @@ function App() {
         name="add"
         title="Новое место"
         labelText="создания карточки"
-        buttonText="Создать">
+        buttonText="Создать"
+        isOpen={isAddPlacePopupOpen}>
         <input type="text" placeholder="Название" className="popup__field" id="titleInput" name="name" required
           minLength="2" maxLength="30" />
         <span className="popup__input-error titleInput-error"></span>

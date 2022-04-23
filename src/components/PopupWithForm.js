@@ -1,6 +1,6 @@
 function PopupWithForm(props) {
   return (
-    <article className="popup" id={`popup-${props.name}`}>
+    <article className={`popup ${props.isOpen && 'popup_opened'}`} id={`popup-${props.name}`}>
       <div className="popup__container popup__container_show_form">
         <h2 className="popup__title">{props.title}</h2>
         <form className="popup__form" name={`${props.name}Form`} noValidate>
