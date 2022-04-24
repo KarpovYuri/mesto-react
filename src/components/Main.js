@@ -1,27 +1,44 @@
-import avatar from '../images/avatar.jpg';
+import React from "react";
+import api from "../utils/api";
 
 
-function Main(props) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
+
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then(result => {
+        setUserName(result.name);
+        setUserDescription(result.about);
+        setUserAvatar(result.avatar);
+      })
+      .catch(error => { console.log(error); })
+  }, []);
+
   return (
     <main>
 
       <section className="profile">
         <div className="profile__avatar-edit">
-          <img src={avatar} alt="Аватар" className="profile__avatar" />
+          <img src={userAvatar} alt="Аватар" className="profile__avatar" />
           <button type="button" aria-label="Кнопка редактирования Аватара"
             className="profile__avatar-button"
-            onClick={props.onEditAvatar}></button>
+            onClick={onEditAvatar}></button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">Жак-Ив Кусто</h1>
+          <h1 className="profile__name">{userName}</h1>
           <button type="button" aria-label="Кнопка редактирования профиля"
             className="profile__edit-button fade-opacity"
-            onClick={props.onEditProfile}></button>
+            onClick={onEditProfile}></button>
         </div>
-        <p className="profile__about">Исследователь океана</p>
+        <p className="profile__about">{userDescription}</p>
         <button type="button" aria-label="Кнопка добавления карточки"
           className="profile__add-button fade-opacity"
-          onClick={props.onAddPlace}></button>
+          onClick={onAddPlace}></button>
       </section>
 
       <section className="cards"></section>
