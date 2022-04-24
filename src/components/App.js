@@ -94,21 +94,6 @@ function App() {
         buttonText="Да"
         onClose={closeAllPopups} />
 
-      <template id="card-template">
-        <div className="card">
-          <button type="button" aria-label="Иконка мусорного бака" className="card__trash fade-opacity"></button>
-          <img src="#" alt="" className="card__picture" />
-          <div className="card__info">
-            <h2 className="card__title"></h2>
-            <div className="card__like-wrapper">
-              <button type="button" aria-label="Иконка сердечка" className="card__like-btn"></button>
-              <span className="card__like-qty"></span>
-            </div>
-          </div>
-        </div>
-      </template>
-
-
     </div >
 
 
