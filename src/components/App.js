@@ -37,11 +37,13 @@ function App() {
   }
 
 
-  function closeAllPopups() {
-    setEditAvatarPopupOpen(false);
-    setEditProfilePopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setImagePopupOpen(false);
+  function closeAllPopups(evt) {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
+      setEditAvatarPopupOpen(false);
+      setEditProfilePopupOpen(false);
+      setAddPlacePopupOpen(false);
+      setImagePopupOpen(false);
+    }
   }
 
 
