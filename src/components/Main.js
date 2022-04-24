@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../utils/api";
+import Card from './Card';
 
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
@@ -55,17 +56,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
 
       <section className="cards">
         {cards.map((card) => (
-          <div className="card" key={card._id}>
-            <button type="button" aria-label="Иконка мусорного бака" className="card__trash fade-opacity"></button>
-            <img src={card.link} alt="" className="card__picture" />
-            <div className="card__info">
-              <h2 className="card__title">{card.name}</h2>
-              <div className="card__like-wrapper">
-                <button type="button" aria-label="Иконка сердечка" className="card__like-btn"></button>
-                <span className="card__like-qty">{card.likes.length}</span>
-              </div>
-            </div>
-          </div>
+          < Card card={card} key={card._id} />
         ))}
       </section>
 
