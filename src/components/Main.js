@@ -3,7 +3,7 @@ import api from "../utils/api";
 import Card from './Card';
 
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
+function Main(props) {
 
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
@@ -40,23 +40,27 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
           <img src={userAvatar} alt="Аватар" className="profile__avatar" />
           <button type="button" aria-label="Кнопка редактирования Аватара"
             className="profile__avatar-button"
-            onClick={onEditAvatar}></button>
+            onClick={props.onEditAvatar}></button>
         </div>
         <div className="profile__info">
           <h1 className="profile__name">{userName}</h1>
           <button type="button" aria-label="Кнопка редактирования профиля"
             className="profile__edit-button fade-opacity"
-            onClick={onEditProfile}></button>
+            onClick={props.onEditProfile}></button>
         </div>
         <p className="profile__about">{userDescription}</p>
         <button type="button" aria-label="Кнопка добавления карточки"
           className="profile__add-button fade-opacity"
-          onClick={onAddPlace}></button>
+          onClick={props.onAddPlace}></button>
       </section>
 
       <section className="cards">
         {cards.map((card) => (
-          < Card card={card} key={card._id} />
+          < Card
+            card={card}
+            onCardClick={props.onCardClick}
+            key={card._id}
+          />
         ))}
       </section>
 
