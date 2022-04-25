@@ -37,13 +37,16 @@ function App() {
   }
 
 
-  function closeAllPopups(evt) {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      setEditAvatarPopupOpen(false);
-      setEditProfilePopupOpen(false);
-      setAddPlacePopupOpen(false);
-      setImagePopupOpen(false);
-    }
+  function handleChildClick(evt) {
+    evt.stopPropagation();
+  }
+
+
+  function closeAllPopups() {
+    setEditAvatarPopupOpen(false);
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setImagePopupOpen(false);
   }
 
 
@@ -64,7 +67,8 @@ function App() {
       <ImagePopup
         card={selectedCard}
         isOpen={isImagePopupOpen}
-        onClose={closeAllPopups} />
+        onClose={closeAllPopups}
+        onStop={handleChildClick} />
 
       <PopupWhithForm
         name="profile"
@@ -72,7 +76,8 @@ function App() {
         labelText="сохранения данных профиля"
         buttonText="Сохранить"
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}>
+        onClose={closeAllPopups}
+        onStop={handleChildClick}>
         <input type="text" placeholder="Имя" className="popup__field" id="nameInput" name="name" required minLength="2"
           maxLength="40" />
         <span className="popup__input-error nameInput-error"></span>
@@ -87,7 +92,8 @@ function App() {
         labelText="сохранения аватара"
         buttonText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}>
+        onClose={closeAllPopups}
+        onStop={handleChildClick}>
         <input type="url" placeholder="Ссылка на аватар" className="popup__field" id="avatarInput" name="avatar" required />
         <span className="popup__input-error avatarInput-error"></span>
       </PopupWhithForm >
@@ -98,7 +104,8 @@ function App() {
         labelText="создания карточки"
         buttonText="Создать"
         isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}>
+        onClose={closeAllPopups}
+        onStop={handleChildClick}>
         <input type="text" placeholder="Название" className="popup__field" id="titleInput" name="name" required
           minLength="2" maxLength="30" />
         <span className="popup__input-error titleInput-error"></span>
@@ -112,7 +119,8 @@ function App() {
         title="Вы уверены?"
         labelText="подтверждения удаления карточки"
         buttonText="Да"
-        onClose={closeAllPopups} />
+        onClose={closeAllPopups}
+        onStop={handleChildClick} />
 
     </div >
 
