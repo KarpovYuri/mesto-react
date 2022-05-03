@@ -5,6 +5,7 @@ import Main from '../components/Main';
 import Footer from '../components/Footer';
 import ImagePopup from '../components/ImagePopup';
 import PopupWhithForm from '../components/PopupWithForm';
+import api from "../utils/api";
 
 
 function App() {
@@ -14,6 +15,14 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [curentUser, setCurentUser] = React.useState({});
+
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then(result => { setCurentUser(result) })
+      .catch(error => { console.log(error) })
+  }, []);
 
 
   function handleEditAvatarClick() {
