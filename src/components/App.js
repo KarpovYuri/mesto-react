@@ -19,15 +19,23 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-  const [curentUser, setCurentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
 
 
   // Получение данных текущего пользователя
   React.useEffect(() => {
     api.getUserInfo()
-      .then(result => { setCurentUser(result) })
+      .then(result => { setCurrentUser(result) })
       .catch(error => { console.log(error) })
   }, []);
+
+
+  // Сохранение данных нового пользователя
+  function handleUpdateUser(newUserData) {
+    api.addUserInfo(newUserData)
+      .then(result => { setCurrentUser(result); closeAllPopups() })
+      .catch(error => { console.log(error) })
+  }
 
 
   // Открытие попапа редактирования Аватара
@@ -73,7 +81,7 @@ function App() {
   return (
     <div className="page">
 
-      <CurrentUserContext.Provider value={curentUser}>
+      <CurrentUserContext.Provider value={currentUser}>
         <Header />
 
         <Main
@@ -89,6 +97,7 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onStop={handleChildClick}
+          onUpdateUser={handleUpdateUser}
         />
 
       </CurrentUserContext.Provider>

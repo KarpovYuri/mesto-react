@@ -2,7 +2,7 @@ import React from "react"
 import PopupWhithForm from "./PopupWithForm"
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function EditProfilePopup({ isOpen, onClose, onStop }) {
+function EditProfilePopup({ isOpen, onClose, onStop, onUpdateUser }) {
 
   // Созданиее стейт-переменных
   const [name, setName] = React.useState('');
@@ -30,6 +30,18 @@ function EditProfilePopup({ isOpen, onClose, onStop }) {
   }
 
 
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    onUpdateUser({
+      name,
+      about: description,
+    });
+  }
+
+
   return (
     <PopupWhithForm
       name="profile"
@@ -39,6 +51,7 @@ function EditProfilePopup({ isOpen, onClose, onStop }) {
       isOpen={isOpen}
       onClose={onClose}
       onStop={onStop}
+      onSubmit={handleSubmit}
     >
       <input
         value={name || ''}
