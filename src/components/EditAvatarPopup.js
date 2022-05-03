@@ -1,7 +1,17 @@
 import React from "react"
 import PopupWhithForm from "./PopupWithForm"
 
-function EditAvatarPopup({ isOpen, onClose, onStop }) {
+function EditAvatarPopup({ isOpen, onClose, onStop, onUpdateAvatar }) {
+
+  const avatarRef = React.useRef();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onUpdateAvatar({
+      avatar: avatarRef.current.value
+    });
+  }
 
   return (
     <PopupWhithForm
@@ -12,8 +22,10 @@ function EditAvatarPopup({ isOpen, onClose, onStop }) {
       isOpen={isOpen}
       onClose={onClose}
       onStop={onStop}
+      onSubmit={handleSubmit}
     >
       <input
+        ref={avatarRef}
         type="url"
         placeholder="Ссылка на аватар"
         className="popup__field"

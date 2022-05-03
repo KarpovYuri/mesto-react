@@ -26,16 +26,29 @@ function App() {
   // Получение данных текущего пользователя
   React.useEffect(() => {
     api.getUserInfo()
-      .then(result => { setCurrentUser(result) })
-      .catch(error => { console.log(error) })
+      .then(result => setCurrentUser(result))
+      .catch(error => console.log(error))
   }, []);
 
 
   // Сохранение данных нового пользователя
   function handleUpdateUser(newUserData) {
     api.addUserInfo(newUserData)
-      .then(result => { setCurrentUser(result); closeAllPopups() })
-      .catch(error => { console.log(error) })
+      .then(result => {
+        setCurrentUser(result);
+        closeAllPopups();
+      })
+      .catch(error => console.log(error))
+  }
+
+
+  function handleUpdateAvatar(newAvatar) {
+    api.updateAvatar(newAvatar)
+      .then(result => {
+        setCurrentUser(result);
+        closeAllPopups();
+      })
+      .catch(error => console.log(error))
   }
 
 
@@ -114,6 +127,7 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onStop={handleChildClick}
+        onUpdateAvatar={handleUpdateAvatar}
       />
 
       <PopupWhithForm
