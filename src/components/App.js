@@ -10,6 +10,7 @@ import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 
 function App() {
@@ -168,21 +169,11 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
       />
 
-      <PopupWhithForm
-        name="add"
-        title="Новое место"
-        labelText="создания карточки"
-        buttonText="Создать"
+      <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick}>
-        <input type="text" placeholder="Название" className="popup__field" id="titleInput" name="name" required
-          minLength="2" maxLength="30" />
-        <span className="popup__input-error titleInput-error"></span>
-        <input type="url" placeholder="Ссылка на картинку" className="popup__field" id="pictureInput" name="link"
-          required />
-        <span className="popup__input-error pictureInput-error"></span>
-      </PopupWhithForm >
+        onStop={handleChildClick}
+      />
 
       <PopupWhithForm
         name="delete"
