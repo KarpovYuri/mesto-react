@@ -1,26 +1,19 @@
+// Импорт компонентов
 import React from "react";
 import api from "../utils/api";
 import Card from './Card';
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
 
+  // Получение данных текущего пользователя
+  const { name, about, avatar } = React.useContext(CurrentUserContext);
+
+
+  // Создание стейта карточек
   const [cards, setCards] = React.useState([]);
-
-
-  React.useEffect(() => {
-    api.getUserInfo()
-      .then(result => {
-        setUserName(result.name);
-        setUserDescription(result.about);
-        setUserAvatar(result.avatar);
-      })
-      .catch(error => { console.log(error); })
-  }, []);
 
 
   React.useEffect(() => {
@@ -37,21 +30,30 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
 
       <section className="profile">
         <div className="profile__avatar-edit">
-          <img src={userAvatar} alt="Аватар" className="profile__avatar" />
-          <button type="button" aria-label="Кнопка редактирования Аватара"
+          <img src={avatar} alt="Аватар" className="profile__avatar" />
+          <button
+            type="button"
+            aria-label="Кнопка редактирования Аватара"
             className="profile__avatar-button"
-            onClick={onEditAvatar}></button>
+            onClick={onEditAvatar}>
+          </button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
-          <button type="button" aria-label="Кнопка редактирования профиля"
+          <h1 className="profile__name">{name}</h1>
+          <button
+            type="button"
+            aria-label="Кнопка редактирования профиля"
             className="profile__edit-button fade-opacity"
-            onClick={onEditProfile}></button>
+            onClick={onEditProfile}>
+          </button>
         </div>
-        <p className="profile__about">{userDescription}</p>
-        <button type="button" aria-label="Кнопка добавления карточки"
+        <p className="profile__about">{about}</p>
+        <button
+          type="button"
+          aria-label="Кнопка добавления карточки"
           className="profile__add-button fade-opacity"
-          onClick={onAddPlace}></button>
+          onClick={onAddPlace}>
+        </button>
       </section>
 
       <section className="cards">

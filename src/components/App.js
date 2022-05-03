@@ -21,7 +21,7 @@ function App() {
   const [curentUser, setCurentUser] = React.useState({});
 
 
-  // Получение данных текущего пользователя
+  // Установка контекста текущего пользователя
   React.useEffect(() => {
     api.getUserInfo()
       .then(result => { setCurentUser(result) })
@@ -69,7 +69,6 @@ function App() {
   }
 
 
-  // Основной компонент
   return (
     <div className="page">
 
