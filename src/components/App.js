@@ -1,3 +1,4 @@
+// Импорты компонентов
 import React from "react";
 import '../index.css';
 import Header from '../components/Header';
@@ -6,10 +7,12 @@ import Footer from '../components/Footer';
 import ImagePopup from '../components/ImagePopup';
 import PopupWhithForm from '../components/PopupWithForm';
 import api from "../utils/api";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 
 function App() {
 
+  // Создание стейтов
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -18,6 +21,7 @@ function App() {
   const [curentUser, setCurentUser] = React.useState({});
 
 
+  // Получение данных текущего пользователя
   React.useEffect(() => {
     api.getUserInfo()
       .then(result => { setCurentUser(result) })
@@ -25,32 +29,38 @@ function App() {
   }, []);
 
 
+  // Открытие попапа редактирования Аватара
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
 
+  // Открытие попапа редактирования данных профиля
   function handleEditProfileClick() {
     setEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
 
+  // Открытие попапа добавления карточки места
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
 
+  // Открытие попапа изображения
   function handleCardClick(card) {
     setImagePopupOpen(!isImagePopupOpen);
     setSelectedCard(card);
   }
 
 
+  // Остановка всплытия клика
   function handleChildClick(evt) {
     evt.stopPropagation();
   }
 
 
+  // Закрытие попапов
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
@@ -59,19 +69,22 @@ function App() {
   }
 
 
+  // Основной компонент
   return (
     <div className="page">
 
-      <Header />
+      <CurrentUserContext.Provider value={curentUser}>
+        <Header />
 
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onEditAvatar={handleEditAvatarClick}
-        onAddPlace={handleAddPlaceClick}
-        onCardClick={handleCardClick}
-      />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onEditAvatar={handleEditAvatarClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+        />
 
-      <Footer />
+        <Footer />
+      </CurrentUserContext.Provider>
 
       <ImagePopup
         card={selectedCard}
