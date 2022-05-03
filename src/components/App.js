@@ -21,6 +21,7 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
 
   // Получение данных текущего пользователя
@@ -29,6 +30,40 @@ function App() {
       .then(result => setCurrentUser(result))
       .catch(error => console.log(error))
   }, []);
+
+
+  // Получение данных начальных карточек
+  React.useEffect(() => {
+    api.getInitialCards()
+      .then(initialCards => {
+        setCards(initialCards);
+      })
+      .catch(error => { console.log(error) });
+  }, []);
+
+
+  function handleCardLike(card) {
+
+    // Проверяем есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((likeCard) => {
+        setCards(cardsArray => cardsArray.map(item => item._id === card._id ? likeCard : item));
+      });
+  }
+
+
+  function handleCardDelete(card) {
+
+    // Отправляем запрос в API и удаляем карточку
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards(cardsArray => cardsArray.filter(item => item._id !== card._id));
+      });
+  }
 
 
   // Сохранение данных нового пользователя
@@ -103,6 +138,9 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          cards={cards}
         />
 
         <Footer />
