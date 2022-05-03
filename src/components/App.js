@@ -124,12 +124,6 @@ function App() {
   }
 
 
-  // Остановка всплытия клика
-  function handleChildClick(evt) {
-    evt.stopPropagation();
-  }
-
-
   // Закрытие попапов
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
@@ -160,7 +154,6 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          onStop={handleChildClick}
           onUpdateUser={handleUpdateUser}
         />
 
@@ -170,20 +163,17 @@ function App() {
         card={selectedCard}
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick}
       />
 
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick}
         onUpdateAvatar={handleUpdateAvatar}
       />
 
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick}
         onAddPlace={handleAddPlaceSubmit}
       />
 
@@ -193,7 +183,6 @@ function App() {
         labelText="подтверждения удаления карточки"
         buttonText="Да"
         onClose={closeAllPopups}
-        onStop={handleChildClick}
       />
 
     </div >

@@ -1,7 +1,7 @@
 import React from "react"
 import PopupWhithForm from "./PopupWithForm"
 
-function EditAvatarPopup({ isOpen, onClose, onStop, onUpdateAvatar }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   const avatarRef = React.useRef();
 
@@ -21,7 +21,6 @@ function EditAvatarPopup({ isOpen, onClose, onStop, onUpdateAvatar }) {
       buttonText="Сохранить"
       isOpen={isOpen}
       onClose={onClose}
-      onStop={onStop}
       onSubmit={handleSubmit}
     >
       <input
