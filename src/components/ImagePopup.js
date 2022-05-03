@@ -1,7 +1,8 @@
-function ImagePopup({ isOpen, card, onClose, onStop }) {
+function ImagePopup({ isOpen, card, onClose }) {
   return (
-    <article className={`popup popup_overlay_dark ${isOpen && 'popup_opened'}`} onClick={onClose}>
-      <div className="popup__container popup__container_show_image" onClick={onStop}>
+    <article className={`popup ${isOpen && 'popup_opened'}`}>
+      <div onClick={onClose} className="popup__overlay popup__overlay_theme_dark"></div>
+      <div className="popup__container popup__container_show_image">
         <img
           src={card.link}
           alt={card.name}
