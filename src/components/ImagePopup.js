@@ -9,9 +9,12 @@ function ImagePopup({ isOpen, card, onClose }) {
           className="popup__image"
         />
         <p className="popup__signature">{card.name}</p>
-        <button type="button" aria-label="Кнопка закрытия окна"
+        <button
+          type="button"
+          aria-label="Кнопка закрытия окна"
           className="popup__close-button fade-opacity"
-          onClick={onClose}></button>
+          onClick={onClose}>
+        </button>
       </div>
     </article>
   );
