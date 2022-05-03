@@ -12,4 +12,9 @@
   top: 20px;
   right: 20px;
   outline: none;
+  transition: opacity 0.25s;
+}
+
+.card__delete-btn:hover {
+  opacity: .5;
 }

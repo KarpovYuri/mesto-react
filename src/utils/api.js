@@ -84,27 +84,16 @@ class Api {
       .then(res => this._handlingResponse(res));
   }
 
-  // Постановка лайка карточке
-  setCardLike(cardId) {
-    return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: {
-        authorization: this._token
-      }
-    })
-      .then(res => this._handlingResponse(res));
-  }
 
-
-  // Снятие лайка карточки
-  removeCardLike(cardId) {
-    return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-      method: "DELETE",
+  // Постановка и снятие лайка карточке
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: isLiked ? "PUT" : "DELETE",
       headers: {
-        authorization: this._token
-      }
+        authorization: this._token,
+      },
     })
-      .then(res => this._handlingResponse(res));
+      .then((res) => this._handlingResponse(res));
   }
 
 

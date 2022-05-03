@@ -2,7 +2,7 @@
 import React from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardClick }) {
+function Card({ card, onCardClick, onCardLike }) {
 
     // Получение данных текущего пользователя
     const currentUser = React.useContext(CurrentUserContext);
@@ -26,6 +26,13 @@ function Card({ card, onCardClick }) {
     const cardLikeButtonClassName = `card__like-btn ${isLiked ? 'card__like-btn_active' : ''}`;
 
 
+    // Обработчик лайка
+    function handleLikeClick() {
+        onCardLike(card);
+    }
+
+
+    // Обработчик открытия попапа изображения
     function handleClick() {
         onCardClick(card);
     }
@@ -49,6 +56,7 @@ function Card({ card, onCardClick }) {
                     <button
                         type="button"
                         aria-label="Иконка сердечка"
+                        onClick={handleLikeClick}
                         className={cardLikeButtonClassName}>
                     </button>
                     <span className="card__like-qty">{card.likes.length}</span>

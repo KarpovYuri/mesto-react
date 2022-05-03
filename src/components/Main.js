@@ -9,7 +9,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
 
 
   // Получение данных текущего пользователя
-  const { name, about, avatar } = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
 
   // Создание стейта карточек
@@ -26,12 +26,28 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   }, []);
 
 
+  function handleCardLike(card) {
+
+
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        console.log(newCard)
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
+
   return (
     <main>
 
       <section className="profile">
         <div className="profile__avatar-edit">
-          <img src={avatar} alt="Аватар" className="profile__avatar" />
+          <img src={currentUser.avatar} alt="Аватар" className="profile__avatar" />
           <button
             type="button"
             aria-label="Кнопка редактирования Аватара"
@@ -40,7 +56,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           </button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">{name}</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <button
             type="button"
             aria-label="Кнопка редактирования профиля"
@@ -48,7 +64,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             onClick={onEditProfile}>
           </button>
         </div>
-        <p className="profile__about">{about}</p>
+        <p className="profile__about">{currentUser.about}</p>
         <button
           type="button"
           aria-label="Кнопка добавления карточки"
@@ -62,6 +78,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           < Card
             card={card}
             onCardClick={onCardClick}
+            onCardLike={handleCardLike}
             key={card._id}
           />
         ))}
