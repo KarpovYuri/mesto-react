@@ -43,6 +43,18 @@ function App() {
   }, []);
 
 
+  // Закрытие попапов по Escape
+  React.useEffect(() => {
+    function handleEscClose(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups()
+      }
+    }
+    document.addEventListener('keydown', handleEscClose)
+    return () => document.removeEventListener('keydown', handleEscClose)
+  }, [])
+
+
   function handleCardLike(card) {
 
     // Проверяем есть ли уже лайк на этой карточке
