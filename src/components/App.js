@@ -78,10 +78,22 @@ function App() {
   }
 
 
+  // Обновление аватара
   function handleUpdateAvatar(newAvatar) {
     api.updateAvatar(newAvatar)
       .then(result => {
         setCurrentUser(result);
+        closeAllPopups();
+      })
+      .catch(error => console.log(error))
+  }
+
+
+  // Добавление карточки
+  function handleAddPlaceSubmit(newCard) {
+    api.addCard(newCard)
+      .then(result => {
+        setCards([result, ...cards]);
         closeAllPopups();
       })
       .catch(error => console.log(error))
@@ -173,6 +185,7 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onStop={handleChildClick}
+        onAddPlace={handleAddPlaceSubmit}
       />
 
       <PopupWhithForm
