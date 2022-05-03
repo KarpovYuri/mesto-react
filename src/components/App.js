@@ -21,7 +21,7 @@ function App() {
   const [curentUser, setCurentUser] = React.useState({});
 
 
-  // Установка контекста текущего пользователя
+  // Получение данных текущего пользователя
   React.useEffect(() => {
     api.getUserInfo()
       .then(result => { setCurentUser(result) })

@@ -16,6 +16,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   const [cards, setCards] = React.useState([]);
 
 
+  // Получение данных начальных карточек
   React.useEffect(() => {
     api.getInitialCards()
       .then(initialCards => {

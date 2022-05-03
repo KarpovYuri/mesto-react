@@ -1,4 +1,4 @@
-.card__trash {
+.card__delete-btn {
   cursor: pointer;
   width: 18px;
   height: 19px;
@@ -12,5 +12,4 @@
   top: 20px;
   right: 20px;
   outline: none;
-  /*display: none;*/
 }
