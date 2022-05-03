@@ -84,6 +84,13 @@ function App() {
         />
 
         <Footer />
+
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onStop={handleChildClick}
+        />
+
       </CurrentUserContext.Provider>
 
       <ImagePopup
@@ -92,14 +99,6 @@ function App() {
         onClose={closeAllPopups}
         onStop={handleChildClick}
       />
-
-
-      <EditProfilePopup
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        onStop={handleChildClick}
-      />
-
 
       <PopupWhithForm
         name="avatar"
