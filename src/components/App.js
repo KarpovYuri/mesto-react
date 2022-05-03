@@ -9,6 +9,7 @@ import PopupWhithForm from '../components/PopupWithForm';
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 
 function App() {
@@ -109,17 +110,11 @@ function App() {
         onStop={handleChildClick}
       />
 
-      <PopupWhithForm
-        name="avatar"
-        title="Обновить аватар"
-        labelText="сохранения аватара"
-        buttonText="Сохранить"
+      <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick}>
-        <input type="url" placeholder="Ссылка на аватар" className="popup__field" id="avatarInput" name="avatar" required />
-        <span className="popup__input-error avatarInput-error"></span>
-      </PopupWhithForm >
+        onStop={handleChildClick}
+      />
 
       <PopupWhithForm
         name="add"
