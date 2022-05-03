@@ -8,6 +8,7 @@ import ImagePopup from '../components/ImagePopup';
 import PopupWhithForm from '../components/PopupWithForm';
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 
 function App() {
@@ -89,23 +90,16 @@ function App() {
         card={selectedCard}
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick} />
+        onStop={handleChildClick}
+      />
 
-      <PopupWhithForm
-        name="profile"
-        title="Редактировать профиль"
-        labelText="сохранения данных профиля"
-        buttonText="Сохранить"
+
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-        onStop={handleChildClick}>
-        <input type="text" placeholder="Имя" className="popup__field" id="nameInput" name="name" required minLength="2"
-          maxLength="40" />
-        <span className="popup__input-error nameInput-error"></span>
-        <input type="text" placeholder="О себе" className="popup__field" id="aboutInput" name="about" required
-          minLength="2" maxLength="200" />
-        <span className="popup__input-error aboutInput-error"></span>
-      </PopupWhithForm>
+        onStop={handleChildClick}
+      />
+
 
       <PopupWhithForm
         name="avatar"
@@ -141,7 +135,8 @@ function App() {
         labelText="подтверждения удаления карточки"
         buttonText="Да"
         onClose={closeAllPopups}
-        onStop={handleChildClick} />
+        onStop={handleChildClick}
+      />
 
     </div >
 
