@@ -48,4 +48,4 @@
 
 **Mesto Russia**
 
-* [ссылка на GitHub Pages{:target="_blank"}](https://yurick78.github.io/mesto-react/index.html)
+* [ссылка на GitHub Pages](https://yurick78.github.io/mesto-react/index.html)

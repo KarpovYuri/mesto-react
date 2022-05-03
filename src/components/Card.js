@@ -2,7 +2,7 @@
 import React from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardClick, onCardLike }) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
     // Получение данных текущего пользователя
     const currentUser = React.useContext(CurrentUserContext);
@@ -26,6 +26,12 @@ function Card({ card, onCardClick, onCardLike }) {
     const cardLikeButtonClassName = `card__like-btn ${isLiked ? 'card__like-btn_active' : ''}`;
 
 
+    // Обработчик удаления карточки
+    function handleDeleteClick() {
+        onCardDelete(card);
+    }
+
+
     // Обработчик лайка
     function handleLikeClick() {
         onCardLike(card);
@@ -42,6 +48,7 @@ function Card({ card, onCardClick, onCardLike }) {
             <button
                 type="button"
                 aria-label="Иконка мусорного бака"
+                onClick={handleDeleteClick}
                 className={cardDeleteButtonClassName}>
             </button>
             <img
