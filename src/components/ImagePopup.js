@@ -1,4 +1,5 @@
 function ImagePopup({ isOpen, card, onClose }) {
+
   return (
     <article className={`popup ${isOpen && 'popup_opened'}`}>
       <div onClick={onClose} className="popup__overlay popup__overlay_theme_dark"></div>
@@ -18,6 +19,8 @@ function ImagePopup({ isOpen, card, onClose }) {
       </div>
     </article>
   );
+
 }
+
 
 export default ImagePopup;

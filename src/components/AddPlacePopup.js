@@ -1,27 +1,29 @@
-import React from "react"
-import PopupWhithForm from "./PopupWithForm"
+import React from "react";
+import PopupWhithForm from "./PopupWithForm";
 
 
 function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace }) {
 
-
+  // Создание стейтов
   const [placeName, setPlaceName] = React.useState('');
   const [placeLink, setPlaceLink] = React.useState('');
 
 
-  function handleChangePlaceName(e) {
-    setPlaceName(e.target.value);
+  // Установка названия места
+  function handleChangePlaceName(event) {
+    setPlaceName(event.target.value);
   }
 
 
-  function handleChangePlaceLink(e) {
-    setPlaceLink(e.target.value);
+  // Устанавливаем ссылку на изображение места
+  function handleChangePlaceLink(event) {
+    setPlaceLink(event.target.value);
   }
 
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  // Добавляем изображение
+  function handleSubmit(event) {
+    event.preventDefault();
     onAddPlace({
       name: placeName,
       link: placeLink,

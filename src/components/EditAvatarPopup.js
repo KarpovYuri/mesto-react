@@ -1,17 +1,20 @@
-import React from "react"
-import PopupWhithForm from "./PopupWithForm"
+import React from "react";
+import PopupWhithForm from "./PopupWithForm";
+
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   const avatarRef = React.useRef();
 
+
+  // Обновление аватара
   function handleSubmit(e) {
     e.preventDefault();
-
     onUpdateAvatar({
       avatar: avatarRef.current.value
     });
   }
+
 
   return (
     <PopupWhithForm
@@ -37,5 +40,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   )
 
 }
+
 
 export default EditAvatarPopup;

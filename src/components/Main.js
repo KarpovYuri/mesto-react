@@ -1,12 +1,20 @@
 // Импорт компонентов
 import React from "react";
-import api from "../utils/api";
 import Card from './Card';
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete, cards }) {
-
+function Main(
+  {
+    onEditAvatar,
+    onEditProfile,
+    onAddPlace,
+    onCardClick,
+    onCardLike,
+    onCardDelete,
+    cards
+  }
+) {
 
   // Получение данных текущего пользователя
   const currentUser = React.useContext(CurrentUserContext);
@@ -58,5 +66,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike
     </main>
   );
 }
+
 
 export default Main;

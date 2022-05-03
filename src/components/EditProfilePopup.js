@@ -1,6 +1,7 @@
-import React from "react"
-import PopupWhithForm from "./PopupWithForm"
+import React from "react";
+import PopupWhithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
@@ -21,12 +22,15 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }, [currentUser]);
 
 
-  function handleChangeName(e) {
-    setName(e.target.value);
+  // Установка имени пользователя
+  function handleChangeName(event) {
+    setName(event.target.value);
   }
 
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
+
+  // Установка информации о пользователи
+  function handleChangeDescription(event) {
+    setDescription(event.target.value);
   }
 
 
@@ -81,5 +85,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     </PopupWhithForm>
   )
 }
+
 
 export default EditProfilePopup;

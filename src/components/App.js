@@ -1,16 +1,15 @@
-// Импорты компонентов
 import React from "react";
 import '../index.css';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 import ImagePopup from '../components/ImagePopup';
-import PopupWhithForm from '../components/PopupWithForm';
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 
 function App() {
@@ -20,6 +19,7 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [isCardDeletePopupOpen, setCardDeletePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -29,7 +29,7 @@ function App() {
   React.useEffect(() => {
     api.getUserInfo()
       .then(result => setCurrentUser(result))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
   }, []);
 
 
@@ -39,7 +39,7 @@ function App() {
       .then(initialCards => {
         setCards(initialCards);
       })
-      .catch(error => { console.log(error) });
+      .catch(error => { console.log(error); });
   }, []);
 
 
@@ -47,12 +47,12 @@ function App() {
   React.useEffect(() => {
     function handleEscClose(evt) {
       if (evt.key === 'Escape') {
-        closeAllPopups()
+        closeAllPopups();
       }
     }
-    document.addEventListener('keydown', handleEscClose)
-    return () => document.removeEventListener('keydown', handleEscClose)
-  }, [])
+    document.addEventListener('keydown', handleEscClose);
+    return () => document.removeEventListener('keydown', handleEscClose);
+  }, []);
 
 
   function handleCardLike(card) {
@@ -68,12 +68,14 @@ function App() {
   }
 
 
+  // Удаление карточки
   function handleCardDelete(card) {
 
     // Отправляем запрос в API и удаляем карточку
     api.deleteCard(card._id)
       .then(() => {
         setCards(cardsArray => cardsArray.filter(item => item._id !== card._id));
+        closeAllPopups();
       });
   }
 
@@ -85,7 +87,7 @@ function App() {
         setCurrentUser(result);
         closeAllPopups();
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
   }
 
 
@@ -96,7 +98,7 @@ function App() {
         setCurrentUser(result);
         closeAllPopups();
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
   }
 
 
@@ -107,7 +109,7 @@ function App() {
         setCards([result, ...cards]);
         closeAllPopups();
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
   }
 
 
@@ -135,6 +137,11 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleDeleteButtonClick(card) {
+    setCardDeletePopupOpen(!isCardDeletePopupOpen);
+    setSelectedCard(card);
+  }
+
 
   // Закрытие попапов
   function closeAllPopups() {
@@ -142,6 +149,7 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setImagePopupOpen(false);
+    setCardDeletePopupOpen(false);
   }
 
 
@@ -149,6 +157,7 @@ function App() {
     <div className="page">
 
       <CurrentUserContext.Provider value={currentUser}>
+
         <Header />
 
         <Main
@@ -157,7 +166,7 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardDelete={handleDeleteButtonClick}
           cards={cards}
         />
 
@@ -189,15 +198,14 @@ function App() {
         onAddPlace={handleAddPlaceSubmit}
       />
 
-      <PopupWhithForm
-        name="delete"
-        title="Вы уверены?"
-        labelText="подтверждения удаления карточки"
-        buttonText="Да"
+      <ConfirmDeletePopup
+        isOpen={isCardDeletePopupOpen}
         onClose={closeAllPopups}
+        card={selectedCard}
+        onDeleteCard={handleCardDelete}
       />
 
-    </div >
+    </div>
 
 
   );

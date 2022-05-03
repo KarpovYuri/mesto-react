@@ -1,6 +1,6 @@
-// Импорт компонентов
 import React from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
@@ -43,6 +43,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardClick(card);
   }
 
+
   return (
     <div className="card">
       <button
@@ -72,5 +73,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     </div>
   );
 }
+
 
 export default Card;

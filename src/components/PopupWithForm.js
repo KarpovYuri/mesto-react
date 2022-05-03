@@ -1,4 +1,15 @@
-function PopupWithForm({ isOpen, onClose, onSubmit, title, name, children, labelText, buttonText }) {
+function PopupWithForm(
+  {
+    isOpen,
+    onClose,
+    onSubmit,
+    title,
+    name,
+    children,
+    labelText,
+    buttonText
+  }
+) {
 
   return (
     <article className={`popup ${isOpen && 'popup_opened'}`}>
@@ -30,5 +41,6 @@ function PopupWithForm({ isOpen, onClose, onSubmit, title, name, children, label
   );
 
 }
+
 
 export default PopupWithForm;
