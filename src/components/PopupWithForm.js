@@ -7,7 +7,8 @@ function PopupWithForm(
     name,
     children,
     labelText,
-    buttonText
+    buttonText,
+    formValid
   }
 ) {
 
@@ -26,7 +27,9 @@ function PopupWithForm(
           <button
             type="submit"
             aria-label={`Кнопка ${labelText}`}
-            className="popup__submit-button">
+            className={`popup__submit-button ${!formValid && 'popup__submit-button_inactive'}`}
+            disabled={!formValid}
+          >
             {buttonText}
           </button>
         </form>
