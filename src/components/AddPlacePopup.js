@@ -21,7 +21,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
 
 
   // Показываем ошибку при смене фокуса поля Name
-  function handleBlurPlaceName(event) {
+  function handleBlurPlaceName() {
     setDirtyInputName(true);
   }
 
@@ -33,7 +33,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
 
 
   // Показываем ошибку при смене фокуса поля Link
-  function handleBlurPlaceLink(event) {
+  function handleBlurPlaceLink() {
     setDirtyInputLink(true);
   }
 
@@ -69,6 +69,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
         className={`popup__field ${!nameValidate.isInputValid && isDirtyInputName && 'popup__field_type_error'}`}
         id="titleInput"
         name="name"
+        autoComplete="off"
       />
       <span className={`popup__input-error ${!nameValidate.isInputValid && isDirtyInputName && 'popup__input-error_active'}`}>
         {nameValidate.isTextError}
@@ -82,9 +83,9 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
         className={`popup__field ${!linkValidate.isInputValid && isDirtyInputLink && 'popup__field_type_error'}`}
         id="pictureInput"
         name="link"
+        autoComplete="off"
       />
-      <span className={`popup__input-error ${!linkValidate.isInputValid && isDirtyInputLink && 'popup__input-error_active'}`}
-      >
+      <span className={`popup__input-error ${!linkValidate.isInputValid && isDirtyInputLink && 'popup__input-error_active'}`}>
         {linkValidate.isTextError}
       </span>
     </PopupWhithForm >
