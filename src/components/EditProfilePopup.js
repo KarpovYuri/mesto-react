@@ -6,7 +6,7 @@ import UseValidation from "../hooks/UseValidation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
 
-  // Созданиее стейт-переменных
+  // Созданиее стейт переменных для валидации
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [isInputNameError, setInputNameError] = React.useState(false);

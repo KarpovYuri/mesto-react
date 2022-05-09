@@ -14,16 +14,34 @@ import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 function App() {
 
-  // Создание стейтов
+  // Создание стейтов открытия попапов
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [isCardDeletePopupOpen, setCardDeletePopupOpen] = React.useState(false);
+
+  // Создание стейта сохранения/загрузки данных
   const [isRenderLoading, setRenderLoading] = React.useState(false);
+
+
+  // Стейты текущего пользователя и карточек
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+
+
+  // Поднятие стейтов для валидации и очистки формы добавления карточки
+  const [placeName, setPlaceName] = React.useState('');
+  const [placeLink, setPlaceLink] = React.useState('');
+  const [isPlaceNameError, setPlaceNameError] = React.useState(false);
+  const [isPlaceLinkError, setPlaceLinkError] = React.useState(false);
+
+
+  // Поднятие стейтов для валидации и очистки формы редактирования аватара
+  const [avatarLink, setAvatarLink] = React.useState('');
+  const [isAvatarLinkError, setAvatarLinkError] = React.useState(false);
+  const avatarRef = React.useRef();
 
 
   // Получение данных текущего пользователя
@@ -104,6 +122,9 @@ function App() {
       .then(result => {
         setCurrentUser(result);
         closeAllPopups();
+        setAvatarLink('');
+        setAvatarLinkError(false);
+        avatarRef.current.value = '';
       })
       .catch(error => console.log(error))
       .finally(() => setRenderLoading(false));
@@ -117,6 +138,10 @@ function App() {
       .then(result => {
         setCards([result, ...cards]);
         closeAllPopups();
+        setPlaceName('');
+        setPlaceLink('');
+        setPlaceNameError(false);
+        setPlaceLinkError(false);
       })
       .catch(error => console.log(error))
       .finally(() => setRenderLoading(false));
@@ -201,6 +226,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isRenderLoading={isRenderLoading}
+          avatarLink={avatarLink}
+          setAvatarLink={setAvatarLink}
+          isAvatarLinkError={isAvatarLinkError}
+          setAvatarLinkError={setAvatarLinkError}
+          avatarRef={avatarRef}
         />
 
         <AddPlacePopup
@@ -208,6 +238,14 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isRenderLoading={isRenderLoading}
+          placeName={placeName}
+          setPlaceName={setPlaceName}
+          placeLink={placeLink}
+          setPlaceLink={setPlaceLink}
+          isPlaceNameError={isPlaceNameError}
+          setPlaceNameError={setPlaceNameError}
+          isPlaceLinkError={isPlaceLinkError}
+          setPlaceLinkError={setPlaceLinkError}
         />
 
         <ConfirmDeletePopup
