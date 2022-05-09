@@ -20,6 +20,7 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [isCardDeletePopupOpen, setCardDeletePopupOpen] = React.useState(false);
+  const [isRenderLoading, setRenderLoading] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -70,46 +71,55 @@ function App() {
 
   // Удаление карточки
   function handleCardDelete(card) {
+    setRenderLoading(true);
 
     // Отправляем запрос в API и удаляем карточку
     api.deleteCard(card._id)
       .then(() => {
         setCards(cardsArray => cardsArray.filter(item => item._id !== card._id));
         closeAllPopups();
-      });
+      })
+      .catch(error => console.log(error))
+      .finally(() => setRenderLoading(false));
   }
 
 
   // Сохранение данных нового пользователя
   function handleUpdateUser(newUserData) {
+    setRenderLoading(true);
     api.addUserInfo(newUserData)
       .then(result => {
         setCurrentUser(result);
         closeAllPopups();
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(() => setRenderLoading(false));
   }
 
 
   // Обновление аватара
   function handleUpdateAvatar(newAvatar) {
+    setRenderLoading(true);
     api.updateAvatar(newAvatar)
       .then(result => {
         setCurrentUser(result);
         closeAllPopups();
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(() => setRenderLoading(false));
   }
 
 
   // Добавление карточки
   function handleAddPlaceSubmit(newCard) {
+    setRenderLoading(true);
     api.addCard(newCard)
       .then(result => {
         setCards([result, ...cards]);
         closeAllPopups();
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(() => setRenderLoading(false));
   }
 
 
@@ -145,6 +155,7 @@ function App() {
 
   // Закрытие попапов
   function closeAllPopups() {
+    setRenderLoading(false);
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -176,34 +187,38 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          isRenderLoading={isRenderLoading}
+        />
+
+        <ImagePopup
+          card={selectedCard}
+          isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+        />
+
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          isRenderLoading={isRenderLoading}
+        />
+
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+          isRenderLoading={isRenderLoading}
+        />
+
+        <ConfirmDeletePopup
+          isOpen={isCardDeletePopupOpen}
+          onClose={closeAllPopups}
+          card={selectedCard}
+          onDeleteCard={handleCardDelete}
+          isRenderLoading={isRenderLoading}
         />
 
       </CurrentUserContext.Provider>
-
-      <ImagePopup
-        card={selectedCard}
-        isOpen={isImagePopupOpen}
-        onClose={closeAllPopups}
-      />
-
-      <EditAvatarPopup
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        onUpdateAvatar={handleUpdateAvatar}
-      />
-
-      <AddPlacePopup
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        onAddPlace={handleAddPlaceSubmit}
-      />
-
-      <ConfirmDeletePopup
-        isOpen={isCardDeletePopupOpen}
-        onClose={closeAllPopups}
-        card={selectedCard}
-        onDeleteCard={handleCardDelete}
-      />
 
     </div>
 

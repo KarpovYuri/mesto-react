@@ -2,7 +2,7 @@ import React from "react";
 import PopupWhithForm from "./PopupWithForm";
 
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
 
   const avatarRef = React.useRef();
 
@@ -21,7 +21,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       name="avatar"
       title="Обновить аватар"
       labelText="сохранения аватара"
-      buttonText="Сохранить"
+      buttonText={isRenderLoading ? 'Сохранение...' : 'Сохранить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

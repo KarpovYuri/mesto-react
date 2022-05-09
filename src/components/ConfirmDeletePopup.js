@@ -1,7 +1,7 @@
 import PopupWhithForm from "./PopupWithForm";
 
 
-function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard, card }) {
+function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard, card, isRenderLoading }) {
 
   // Удаляем карточку
   function handleSubmit(event) {
@@ -15,7 +15,7 @@ function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard, card }) {
       name="delete"
       title="Вы уверены?"
       labelText="подтверждения удаления карточки"
-      buttonText="Да"
+      buttonText={isRenderLoading ? 'Удаление...' : 'Да'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

@@ -3,7 +3,7 @@ import PopupWhithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
 
   // Созданиее стейт-переменных
   const [name, setName] = React.useState('');
@@ -51,7 +51,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       name="profile"
       title="Редактировать профиль"
       labelText="сохранения данных профиля"
-      buttonText="Сохранить"
+      buttonText={isRenderLoading ? 'Сохранение...' : 'Сохранить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

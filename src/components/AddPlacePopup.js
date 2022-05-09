@@ -2,7 +2,7 @@ import React from "react";
 import PopupWhithForm from "./PopupWithForm";
 
 
-function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading }) {
 
   // Создание стейтов
   const [placeName, setPlaceName] = React.useState('');
@@ -36,7 +36,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace }) {
       name="add"
       title="Новое место"
       labelText="создания карточки"
-      buttonText="Создать"
+      buttonText={isRenderLoading ? 'Создание...' : 'Создать'}
       isOpen={isOpen}
       onClose={onClose}
       onStop={onStop}
