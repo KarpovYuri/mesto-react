@@ -1,25 +1,20 @@
 import React from "react";
 import PopupWhithForm from "./PopupWithForm";
-import useValidation from "../hooks/useValidation";
+import UseValidation from "../hooks/UseValidation";
 
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
 
   const avatarRef = React.useRef();
   const [avatarLink, setAvatarLink] = React.useState('');
-  const [isDirtyInputLink, setDirtyInputLink] = React.useState(false);
-  const linkValidate = useValidation(avatarLink, { isEmpty: true, isLink: true });
+  const [isInputLinkError, setInputLinkError] = React.useState(false);
+  const linkValidate = UseValidation(avatarLink, { isEmpty: true, isLink: true });
 
 
   // Установка ссылки на аватар
   function handleChangeAvatarLink(event) {
     setAvatarLink(event.target.value);
-  }
-
-
-  // Показываем ошибку при смене фокуса поля Name
-  function handleBlurAvatarLink() {
-    setDirtyInputLink(true);
+    setInputLinkError(true);
   }
 
 
@@ -42,20 +37,18 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       formValid={linkValidate.isInputValid}
-
     >
       <input
         ref={avatarRef}
         type="url"
         placeholder="Ссылка на аватар"
-        className={`popup__field ${!linkValidate.isInputValid && isDirtyInputLink && 'popup__field_type_error'}`}
+        className={`popup__field ${!linkValidate.isInputValid && isInputLinkError && 'popup__field_type_error'}`}
         id="avatarInput"
         name="avatar"
         onChange={handleChangeAvatarLink}
-        onBlur={handleBlurAvatarLink}
         autoComplete="off"
       />
-      <span className={`popup__input-error ${!linkValidate.isInputValid && isDirtyInputLink && 'popup__input-error_active'}`}>
+      <span className={`popup__input-error ${!linkValidate.isInputValid && isInputLinkError && 'popup__input-error_active'}`}>
         {linkValidate.isTextError}
       </span>
     </PopupWhithForm >

@@ -1,6 +1,6 @@
 import React from "react";
 
-const useValidation = (value, validations) => {
+const UseValidation = (value = '', validations) => {
 
   const [isTextError, setTextError] = React.useState('');
   const [isInputValid, setInputValid] = React.useState(false);
@@ -28,7 +28,7 @@ const useValidation = (value, validations) => {
           } else {
             if (value) {
               setInputValid(false);
-              setTextError(`Минимальная длинна ${validations[validation]} символа`);
+              setTextError(`Минимальная длинна ${validations[validation]} символов`);
             }
           }
           break;
@@ -57,7 +57,6 @@ const useValidation = (value, validations) => {
       }
 
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
@@ -68,4 +67,4 @@ const useValidation = (value, validations) => {
 
 }
 
-export default useValidation;
+export default UseValidation;

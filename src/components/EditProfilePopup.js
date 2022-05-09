@@ -1,6 +1,7 @@
 import React from "react";
 import PopupWhithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import UseValidation from "../hooks/UseValidation";
 
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
@@ -8,6 +9,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
   // Созданиее стейт-переменных
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const [isInputNameError, setInputNameError] = React.useState(false);
+  const [isInputDescriptionError, setInputDescriptionError] = React.useState(false);
+  const nameValidate = UseValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 });
+  const descriptionValidate = UseValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 });
 
 
   // Подписка на контекст
@@ -25,12 +30,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
   // Установка имени пользователя
   function handleChangeName(event) {
     setName(event.target.value);
+    setInputNameError(true);
   }
 
 
   // Установка информации о пользователи
   function handleChangeDescription(event) {
     setDescription(event.target.value);
+    setInputDescriptionError(true);
   }
 
 
@@ -43,6 +50,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
       name,
       about: description,
     });
+
   }
 
 
@@ -55,33 +63,34 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      formValid={nameValidate.isInputValid && descriptionValidate.isInputValid}
     >
       <input
         value={name || ''}
         onChange={handleChangeName}
         type="text"
         placeholder="Имя"
-        className="popup__field"
+        className={`popup__field ${!nameValidate.isInputValid && isInputNameError && 'popup__field_type_error'}`}
         id="nameInput"
         name="name"
-        required
-        minLength="2"
-        maxLength="40"
+        autoComplete="off"
       />
-      <span className="popup__input-error nameInput-error"></span>
+      <span className={`popup__input-error ${!nameValidate.isInputValid && isInputNameError && 'popup__input-error_active'}`}>
+        {nameValidate.isTextError}
+      </span>
       <input
         value={description || ''}
         onChange={handleChangeDescription}
         type="text"
         placeholder="О себе"
-        className="popup__field"
+        className={`popup__field ${!descriptionValidate.isInputValid && isInputDescriptionError && 'popup__field_type_error'}`}
         id="aboutInput"
         name="about"
-        required
-        minLength="2"
-        maxLength="200"
+        autoComplete="off"
       />
-      <span className="popup__input-error aboutInput-error"></span>
+      <span className={`popup__input-error ${!descriptionValidate.isInputValid && isInputDescriptionError && 'popup__input-error_active'}`}>
+        {descriptionValidate.isTextError}
+      </span>
     </PopupWhithForm>
   )
 }
