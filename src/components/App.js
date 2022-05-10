@@ -57,7 +57,7 @@ function App() {
       .then(initialCards => {
         setCards(initialCards);
       })
-      .catch(error => { console.log(error); });
+      .catch(error => console.log(error));
   }, []);
 
 
@@ -82,7 +82,8 @@ function App() {
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((likeCard) => {
         setCards(cardsArray => cardsArray.map(item => item._id === card._id ? likeCard : item));
-      });
+      })
+      .catch(error => console.log(error));
   }
 
 

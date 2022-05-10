@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PopupWhithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
-import UseValidation from "../hooks/UseValidation";
+import useValidation from "../hooks/useValidation";
 
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
@@ -11,8 +11,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
   const [description, setDescription] = useState('');
   const [isInputNameError, setInputNameError] = useState(false);
   const [isInputDescriptionError, setInputDescriptionError] = useState(false);
-  const nameValidate = UseValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 });
-  const descriptionValidate = UseValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 });
+  const nameValidate = useValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 });
+  const descriptionValidate = useValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 });
 
 
   // Подписка на контекст

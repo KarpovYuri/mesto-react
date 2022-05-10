@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const UseValidation = (value = '', validations) => {
+const useValidation = (value = '', validations) => {
 
   const [isTextError, setTextError] = useState('');
   const [isInputValid, setInputValid] = useState(false);
@@ -67,4 +67,4 @@ const UseValidation = (value = '', validations) => {
 
 }
 
-export default UseValidation;
+export default useValidation;

@@ -1,6 +1,6 @@
 import React from "react";
 import PopupWhithForm from "./PopupWithForm";
-import UseValidation from "../hooks/UseValidation";
+import useValidation from "../hooks/useValidation";
 
 
 function AddPlacePopup(
@@ -23,8 +23,8 @@ function AddPlacePopup(
 ) {
 
   // Запуск валидации
-  const nameValidate = UseValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 });
-  const linkValidate = UseValidation(placeLink, { isEmpty: true, isLink: true });
+  const nameValidate = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 });
+  const linkValidate = useValidation(placeLink, { isEmpty: true, isLink: true });
 
 
   // Установка названия места

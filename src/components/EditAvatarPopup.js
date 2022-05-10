@@ -1,6 +1,6 @@
 import React from "react";
 import PopupWhithForm from "./PopupWithForm";
-import UseValidation from "../hooks/UseValidation";
+import useValidation from "../hooks/useValidation";
 
 
 function EditAvatarPopup(
@@ -19,7 +19,7 @@ function EditAvatarPopup(
 
 
   // Запуск валидации
-  const linkValidate = UseValidation(avatarLink, { isEmpty: true, isLink: true });
+  const linkValidate = useValidation(avatarLink, { isEmpty: true, isLink: true });
 
 
   // Установка ссылки на аватар
