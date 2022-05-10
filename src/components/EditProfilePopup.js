@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import PopupWhithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import UseValidation from "../hooks/UseValidation";
@@ -7,10 +7,10 @@ import UseValidation from "../hooks/UseValidation";
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
 
   // Созданиее стейт переменных для валидации
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [isInputNameError, setInputNameError] = React.useState(false);
-  const [isInputDescriptionError, setInputDescriptionError] = React.useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [isInputNameError, setInputNameError] = useState(false);
+  const [isInputDescriptionError, setInputDescriptionError] = useState(false);
   const nameValidate = UseValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 });
   const descriptionValidate = UseValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 });
 

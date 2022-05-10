@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
@@ -14,37 +14,37 @@ import ConfirmDeletePopup from "./ConfirmDeletePopup";
 function App() {
 
   // Создание стейтов открытия попапов
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
-  const [isCardDeletePopupOpen, setCardDeletePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+  const [isCardDeletePopupOpen, setCardDeletePopupOpen] = useState(false);
 
   // Создание стейта сохранения/загрузки данных
-  const [isRenderLoading, setRenderLoading] = React.useState(false);
+  const [isRenderLoading, setRenderLoading] = useState(false);
 
 
   // Стейты текущего пользователя и карточек
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
 
   // Поднятие стейтов для валидации и очистки формы добавления карточки
-  const [placeName, setPlaceName] = React.useState('');
-  const [placeLink, setPlaceLink] = React.useState('');
-  const [isPlaceNameError, setPlaceNameError] = React.useState(false);
-  const [isPlaceLinkError, setPlaceLinkError] = React.useState(false);
+  const [placeName, setPlaceName] = useState('');
+  const [placeLink, setPlaceLink] = useState('');
+  const [isPlaceNameError, setPlaceNameError] = useState(false);
+  const [isPlaceLinkError, setPlaceLinkError] = useState(false);
 
 
   // Поднятие стейтов для валидации и очистки формы редактирования аватара
-  const [avatarLink, setAvatarLink] = React.useState('');
-  const [isAvatarLinkError, setAvatarLinkError] = React.useState(false);
+  const [avatarLink, setAvatarLink] = useState('');
+  const [isAvatarLinkError, setAvatarLinkError] = useState(false);
   const avatarRef = React.useRef();
 
 
   // Получение данных текущего пользователя
-  React.useEffect(() => {
+  useEffect(() => {
     api.getUserInfo()
       .then(result => setCurrentUser(result))
       .catch(error => console.log(error));
@@ -52,7 +52,7 @@ function App() {
 
 
   // Получение данных начальных карточек
-  React.useEffect(() => {
+  useEffect(() => {
     api.getInitialCards()
       .then(initialCards => {
         setCards(initialCards);
@@ -62,7 +62,7 @@ function App() {
 
 
   // Закрытие попапов по Escape
-  React.useEffect(() => {
+  useEffect(() => {
     function handleEscClose(evt) {
       if (evt.key === 'Escape') {
         closeAllPopups();
