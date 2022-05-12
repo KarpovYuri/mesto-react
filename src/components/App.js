@@ -150,30 +150,30 @@ function App() {
 
   // Открытие попапа редактирования Аватара
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setEditAvatarPopupOpen(true);
   }
 
 
   // Открытие попапа редактирования данных профиля
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setEditProfilePopupOpen(true);
   }
 
 
   // Открытие попапа добавления карточки места
   function handleAddPlaceClick() {
-    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setAddPlacePopupOpen(true);
   }
 
 
   // Открытие попапа изображения
   function handleCardClick(card) {
-    setImagePopupOpen(!isImagePopupOpen);
+    setImagePopupOpen(true);
     setSelectedCard(card);
   }
 
   function handleDeleteButtonClick(card) {
-    setCardDeletePopupOpen(!isCardDeletePopupOpen);
+    setCardDeletePopupOpen(true);
     setSelectedCard(card);
   }
 
