@@ -48,18 +48,6 @@ function App() {
   }, []);
 
 
-  // Закрытие попапов по Escape
-  useEffect(() => {
-    function handleEscClose(evt) {
-      if (evt.key === 'Escape') {
-        closeAllPopups();
-      }
-    }
-    document.addEventListener('keydown', handleEscClose);
-    return () => document.removeEventListener('keydown', handleEscClose);
-  }, []);
-
-
   function handleCardLike(card) {
 
     // Проверяем есть ли уже лайк на этой карточке
@@ -197,12 +185,14 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
           isRenderLoading={isRenderLoading}
+          closeAllPopups={closeAllPopups}
         />
 
         <ImagePopup
           card={selectedCard}
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
+          closeAllPopups={closeAllPopups}
         />
 
         <EditAvatarPopup
@@ -210,6 +200,7 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isRenderLoading={isRenderLoading}
+          closeAllPopups={closeAllPopups}
         />
 
         <AddPlacePopup
@@ -217,6 +208,7 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isRenderLoading={isRenderLoading}
+          closeAllPopups={closeAllPopups}
         />
 
         <ConfirmDeletePopup
@@ -225,6 +217,7 @@ function App() {
           card={selectedCard}
           onDeleteCard={handleCardDelete}
           isRenderLoading={isRenderLoading}
+          closeAllPopups={closeAllPopups}
         />
 
       </CurrentUserContext.Provider>

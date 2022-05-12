@@ -1,4 +1,10 @@
-function ImagePopup({ isOpen, card, onClose }) {
+import React from "react";
+import useEscClose from "../hooks/useEscClose";
+
+function ImagePopup({ isOpen, card, onClose, closeAllPopups }) {
+
+  // Закрытие попапов по Escape
+  useEscClose(isOpen, closeAllPopups);
 
   return (
     <article className={`popup ${isOpen && 'popup_opened'}`}>
