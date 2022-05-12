@@ -24,7 +24,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
 
   // Установка имени пользователя
