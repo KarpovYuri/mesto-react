@@ -6,7 +6,7 @@ const useValidation = (value = '', validations) => {
   const [isInputValid, setInputValid] = useState(false);
   const minLength = validations.minLength;
   // eslint-disable-next-line no-useless-escape
-  const regExpUrl = /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
+  const regExpUrl = /^(https?:\/\/)([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/;
 
 
   React.useEffect(() => {
