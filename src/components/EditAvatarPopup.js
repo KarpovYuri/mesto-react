@@ -24,12 +24,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
 
 
   // Обновление аватара
-  function handleSubmit(e) {
-    e.preventDefault();
-    onUpdateAvatar({
-      avatar: avatarRef.current.value
-    })
-      .then(() => {
+  function handleSubmit(event) {
+    event.preventDefault();
+    onUpdateAvatar(
+      { avatar: avatarRef.current.value },
+      () => {
         setAvatarLinkError(false);
         avatarRef.current.value = '';
         setAvatarLink('');

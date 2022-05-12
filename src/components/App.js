@@ -103,33 +103,32 @@ function App() {
 
 
   // Обновление аватара
-  function handleUpdateAvatar(newAvatar) {
+  function handleUpdateAvatar(newAvatar, clearForm) {
     setRenderLoading(true);
-    return new Promise((resolve) => {
-      api.updateAvatar(newAvatar)
-        .then(result => {
-          setCurrentUser(result);
-          closeAllPopups();
-          resolve();
-        })
-        .catch(error => console.log(error))
-        .finally(() => setRenderLoading(false))
-    })
+    api.updateAvatar(newAvatar)
+      .then(result => {
+        setCurrentUser(result);
+        closeAllPopups();
+        clearForm();
+      })
+      .catch(error => console.log(error))
+      .finally(() => setRenderLoading(false))
   }
 
 
   // Добавление карточки
   function handleAddPlaceSubmit(newCard) {
     setRenderLoading(true);
-    return (
+    return new Promise((resolve) => {
       api.addCard(newCard)
         .then(result => {
           setCards([result, ...cards]);
           closeAllPopups();
+          resolve();
         })
         .catch(error => console.log(error))
         .finally(() => setRenderLoading(false))
-    )
+    })
   }
 
 

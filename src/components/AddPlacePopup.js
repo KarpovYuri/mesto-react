@@ -36,7 +36,13 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
     onAddPlace({
       name: placeName,
       link: placeLink,
-    });
+    })
+      .then(() => {
+        setPlaceNameError(false);
+        setPlaceLinkError(false);
+        setPlaceName('');
+        setPlaceLink('');
+      });
   }
 
 
