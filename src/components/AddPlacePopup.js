@@ -1,26 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import PopupWhithForm from "./PopupWithForm";
 import useValidation from "../hooks/useValidation";
 
 
-function AddPlacePopup(
-  {
-    isOpen,
-    onClose,
-    onStop,
-    onAddPlace,
-    isRenderLoading,
-    placeName,
-    setPlaceName,
-    placeLink,
-    setPlaceLink,
-    isPlaceNameError,
-    setPlaceNameError,
-    isPlaceLinkError,
-    setPlaceLinkError
+function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading }) {
 
-  }
-) {
+  // Стейты для валидации и очистки формы
+  const [placeName, setPlaceName] = useState('');
+  const [placeLink, setPlaceLink] = useState('');
+  const [isPlaceNameError, setPlaceNameError] = useState(false);
+  const [isPlaceLinkError, setPlaceLinkError] = useState(false);
 
   // Запуск валидации
   const nameValidate = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 });

@@ -1,21 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PopupWhithForm from "./PopupWithForm";
 import useValidation from "../hooks/useValidation";
 
 
-function EditAvatarPopup(
-  {
-    isOpen,
-    onClose,
-    onUpdateAvatar,
-    isRenderLoading,
-    avatarLink,
-    setAvatarLink,
-    isAvatarLinkError,
-    setAvatarLinkError,
-    avatarRef
-  }
-) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
+
+  // Стейты для валидации и очистки формы
+  const [avatarLink, setAvatarLink] = useState('');
+  const [isAvatarLinkError, setAvatarLinkError] = useState(false);
+  const avatarRef = React.useRef();
 
 
   // Запуск валидации

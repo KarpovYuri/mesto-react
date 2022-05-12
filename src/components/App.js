@@ -30,19 +30,6 @@ function App() {
   const [cards, setCards] = useState([]);
 
 
-  // Поднятие стейтов для валидации и очистки формы добавления карточки
-  const [placeName, setPlaceName] = useState('');
-  const [placeLink, setPlaceLink] = useState('');
-  const [isPlaceNameError, setPlaceNameError] = useState(false);
-  const [isPlaceLinkError, setPlaceLinkError] = useState(false);
-
-
-  // Поднятие стейтов для валидации и очистки формы редактирования аватара
-  const [avatarLink, setAvatarLink] = useState('');
-  const [isAvatarLinkError, setAvatarLinkError] = useState(false);
-  const avatarRef = React.useRef();
-
-
   // Получение данных текущего пользователя
   useEffect(() => {
     api.getUserInfo()
@@ -118,33 +105,30 @@ function App() {
   // Обновление аватара
   function handleUpdateAvatar(newAvatar) {
     setRenderLoading(true);
-    api.updateAvatar(newAvatar)
-      .then(result => {
-        setCurrentUser(result);
-        closeAllPopups();
-        setAvatarLink('');
-        setAvatarLinkError(false);
-        avatarRef.current.value = '';
-      })
-      .catch(error => console.log(error))
-      .finally(() => setRenderLoading(false));
+    return (
+      api.updateAvatar(newAvatar)
+        .then(result => {
+          setCurrentUser(result);
+          closeAllPopups();
+        })
+        .catch(error => console.log(error))
+        .finally(() => setRenderLoading(false))
+    )
   }
 
 
   // Добавление карточки
   function handleAddPlaceSubmit(newCard) {
     setRenderLoading(true);
-    api.addCard(newCard)
-      .then(result => {
-        setCards([result, ...cards]);
-        closeAllPopups();
-        setPlaceName('');
-        setPlaceLink('');
-        setPlaceNameError(false);
-        setPlaceLinkError(false);
-      })
-      .catch(error => console.log(error))
-      .finally(() => setRenderLoading(false));
+    return (
+      api.addCard(newCard)
+        .then(result => {
+          setCards([result, ...cards]);
+          closeAllPopups();
+        })
+        .catch(error => console.log(error))
+        .finally(() => setRenderLoading(false))
+    )
   }
 
 
@@ -226,11 +210,6 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isRenderLoading={isRenderLoading}
-          avatarLink={avatarLink}
-          setAvatarLink={setAvatarLink}
-          isAvatarLinkError={isAvatarLinkError}
-          setAvatarLinkError={setAvatarLinkError}
-          avatarRef={avatarRef}
         />
 
         <AddPlacePopup
@@ -238,14 +217,6 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isRenderLoading={isRenderLoading}
-          placeName={placeName}
-          setPlaceName={setPlaceName}
-          placeLink={placeLink}
-          setPlaceLink={setPlaceLink}
-          isPlaceNameError={isPlaceNameError}
-          setPlaceNameError={setPlaceNameError}
-          isPlaceLinkError={isPlaceLinkError}
-          setPlaceLinkError={setPlaceLinkError}
         />
 
         <ConfirmDeletePopup
