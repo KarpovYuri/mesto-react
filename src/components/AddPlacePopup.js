@@ -8,25 +8,28 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading, c
   // Стейты для валидации и очистки формы
   const [placeName, setPlaceName] = useState('');
   const [placeLink, setPlaceLink] = useState('');
-  const [isPlaceNameError, setPlaceNameError] = useState(false);
-  const [isPlaceLinkError, setPlaceLinkError] = useState(false);
+
 
   // Запуск валидации
-  const nameValidate = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 });
-  const linkValidate = useValidation(placeLink, { isEmpty: true, isLink: true });
+  const {
+    inputNameValid,
+    inputNameError,
+    inputNameTouched } = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 }, 'Name');
+  const {
+    inputLinkValid,
+    inputLinkError,
+    inputLinkTouched } = useValidation(placeLink, { isEmpty: true, isLink: true }, 'Link');
 
 
   // Установка названия места
   function handleChangePlaceName(event) {
     setPlaceName(event.target.value);
-    setPlaceNameError(true);
   }
 
 
   // Устанавливаем ссылку на изображение места
   function handleChangePlaceLink(event) {
     setPlaceLink(event.target.value);
-    setPlaceLinkError(true);
   }
 
 
@@ -38,8 +41,6 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading, c
       link: placeLink,
     })
       .then(() => {
-        setPlaceNameError(false);
-        setPlaceLinkError(false);
         setPlaceName('');
         setPlaceLink('');
       });
@@ -56,7 +57,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading, c
       onClose={onClose}
       onStop={onStop}
       onSubmit={handleSubmit}
-      formValid={nameValidate.isInputValid && linkValidate.isInputValid}
+      formValid={inputNameValid && inputLinkValid}
       closeAllPopups={closeAllPopups}
     >
       <input
@@ -64,26 +65,26 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading, c
         onChange={handleChangePlaceName}
         type="text"
         placeholder="Название"
-        className={`popup__field ${!nameValidate.isInputValid && isPlaceNameError && 'popup__field_type_error'}`}
+        className={`popup__field ${!inputNameValid && inputNameTouched && 'popup__field_type_error'}`}
         id="titleInput"
         name="name"
         autoComplete="off"
       />
-      <span className={`popup__input-error ${!nameValidate.isInputValid && isPlaceNameError && 'popup__input-error_active'}`}>
-        {nameValidate.isTextError}
+      <span className={`popup__input-error ${!inputNameValid && inputNameTouched && 'popup__input-error_active'}`}>
+        {inputNameError}
       </span>
       <input
         value={placeLink}
         onChange={handleChangePlaceLink}
         type="url"
         placeholder="Ссылка на картинку"
-        className={`popup__field ${!linkValidate.isInputValid && isPlaceLinkError && 'popup__field_type_error'}`}
+        className={`popup__field ${!inputLinkValid && inputLinkTouched && 'popup__field_type_error'}`}
         id="pictureInput"
         name="link"
         autoComplete="off"
       />
-      <span className={`popup__input-error ${!linkValidate.isInputValid && isPlaceLinkError && 'popup__input-error_active'}`}>
-        {linkValidate.isTextError}
+      <span className={`popup__input-error ${!inputLinkValid && inputLinkTouched && 'popup__input-error_active'}`}>
+        {inputLinkError}
       </span>
     </PopupWhithForm >
   )

@@ -8,18 +8,19 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading, clo
 
   // Стейты для валидации и очистки формы
   const [avatarLink, setAvatarLink] = useState('');
-  const [isAvatarLinkError, setAvatarLinkError] = useState(false);
   const avatarRef = React.useRef();
 
 
   // Запуск валидации
-  const linkValidate = useValidation(avatarLink, { isEmpty: true, isLink: true });
+  const {
+    inputLinkValid,
+    inputLinkError,
+    inputLinkTouched } = useValidation(avatarLink, { isEmpty: true, isLink: true }, 'Link');
 
 
   // Установка ссылки на аватар
   function handleChangeAvatarLink(event) {
     setAvatarLink(event.target.value);
-    setAvatarLinkError(true);
   }
 
 
@@ -29,7 +30,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading, clo
     onUpdateAvatar(
       { avatar: avatarRef.current.value },
       () => {
-        setAvatarLinkError(false);
         avatarRef.current.value = '';
         setAvatarLink('');
       })
@@ -45,21 +45,21 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading, clo
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      formValid={linkValidate.isInputValid}
+      formValid={inputLinkValid}
       closeAllPopups={closeAllPopups}
     >
       <input
         ref={avatarRef}
         type="url"
         placeholder="Ссылка на аватар"
-        className={`popup__field ${!linkValidate.isInputValid && isAvatarLinkError && 'popup__field_type_error'}`}
+        className={`popup__field ${!inputLinkValid && inputLinkTouched && 'popup__field_type_error'}`}
         id="avatarInput"
         name="avatar"
         onChange={handleChangeAvatarLink}
         autoComplete="off"
       />
-      <span className={`popup__input-error ${!linkValidate.isInputValid && isAvatarLinkError && 'popup__input-error_active'}`}>
-        {linkValidate.isTextError}
+      <span className={`popup__input-error ${!inputLinkValid && inputLinkTouched && 'popup__input-error_active'}`}>
+        {inputLinkError}
       </span>
     </PopupWhithForm >
   )

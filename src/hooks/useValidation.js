@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-const useValidation = (value = '', validations) => {
+const useValidation = (value = '', validations, variableName) => {
 
   const [isTextError, setTextError] = useState('');
   const [isInputValid, setInputValid] = useState(false);
+  const [isInputTouched, setInputTouched] = useState(false);
   const minLength = validations.minLength;
   // eslint-disable-next-line no-useless-escape
   const regExpUrl = /(^https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i;
@@ -14,6 +15,7 @@ const useValidation = (value = '', validations) => {
       switch (validation) {
         case 'isEmpty':
           if (value) {
+            setInputTouched(true);
             setInputValid(true);
             setTextError('');
           } else {
@@ -57,12 +59,14 @@ const useValidation = (value = '', validations) => {
       }
 
     }
+    if (isInputValid) setInputTouched(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return {
-    isTextError,
-    isInputValid
+    ['input' + variableName + 'Valid']: isInputValid,
+    ['input' + variableName + 'Error']: isTextError,
+    ['input' + variableName + 'Touched']: isInputTouched
   }
 
 }

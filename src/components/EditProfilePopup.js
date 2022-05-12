@@ -9,10 +9,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading, clos
   // Созданиее стейт переменных для валидации
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [isInputNameError, setInputNameError] = useState(false);
-  const [isInputDescriptionError, setInputDescriptionError] = useState(false);
-  const nameValidate = useValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 });
-  const descriptionValidate = useValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 });
+  const {
+    inputNameValid,
+    inputNameError,
+    inputNameTouched } = useValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 }, 'Name');
+  const {
+    inputDescriptionValid,
+    inputDescriptionError,
+    inputDescriptionTouched } = useValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 }, 'Description');
 
 
   // Подписка на контекст
@@ -30,20 +34,18 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading, clos
   // Установка имени пользователя
   function handleChangeName(event) {
     setName(event.target.value);
-    setInputNameError(true);
   }
 
 
   // Установка информации о пользователи
   function handleChangeDescription(event) {
     setDescription(event.target.value);
-    setInputDescriptionError(true);
   }
 
 
-  function handleSubmit(e) {
+  function handleSubmit(event) {
     // Запрещаем браузеру переходить по адресу формы
-    e.preventDefault();
+    event.preventDefault();
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
@@ -63,7 +65,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading, clos
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      formValid={nameValidate.isInputValid && descriptionValidate.isInputValid}
+      formValid={inputNameValid && inputDescriptionValid}
       closeAllPopups={closeAllPopups}
     >
       <input
@@ -71,26 +73,26 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading, clos
         onChange={handleChangeName}
         type="text"
         placeholder="Имя"
-        className={`popup__field ${!nameValidate.isInputValid && isInputNameError && 'popup__field_type_error'}`}
+        className={`popup__field ${!inputNameValid && inputNameTouched && 'popup__field_type_error'}`}
         id="nameInput"
         name="name"
         autoComplete="off"
       />
-      <span className={`popup__input-error ${!nameValidate.isInputValid && isInputNameError && 'popup__input-error_active'}`}>
-        {nameValidate.isTextError}
+      <span className={`popup__input-error ${!inputNameValid && inputNameTouched && 'popup__input-error_active'}`}>
+        {inputNameError}
       </span>
       <input
         value={description || ''}
         onChange={handleChangeDescription}
         type="text"
         placeholder="О себе"
-        className={`popup__field ${!descriptionValidate.isInputValid && isInputDescriptionError && 'popup__field_type_error'}`}
+        className={`popup__field ${!inputDescriptionValid && inputDescriptionTouched && 'popup__field_type_error'}`}
         id="aboutInput"
         name="about"
         autoComplete="off"
       />
-      <span className={`popup__input-error ${!descriptionValidate.isInputValid && isInputDescriptionError && 'popup__input-error_active'}`}>
-        {descriptionValidate.isTextError}
+      <span className={`popup__input-error ${!inputDescriptionValid && inputDescriptionTouched && 'popup__input-error_active'}`}>
+        {inputDescriptionError}
       </span>
     </PopupWhithForm>
   )
