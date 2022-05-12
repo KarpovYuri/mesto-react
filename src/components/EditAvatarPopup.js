@@ -5,6 +5,7 @@ import useValidation from "../hooks/useValidation";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
 
+
   // Стейты для валидации и очистки формы
   const [avatarLink, setAvatarLink] = useState('');
   const [isAvatarLinkError, setAvatarLinkError] = useState(false);
@@ -27,7 +28,12 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
     e.preventDefault();
     onUpdateAvatar({
       avatar: avatarRef.current.value
-    });
+    })
+      .then(() => {
+        setAvatarLinkError(false);
+        avatarRef.current.value = '';
+        setAvatarLink('');
+      })
   }
 
 

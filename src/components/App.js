@@ -105,15 +105,16 @@ function App() {
   // Обновление аватара
   function handleUpdateAvatar(newAvatar) {
     setRenderLoading(true);
-    return (
+    return new Promise((resolve) => {
       api.updateAvatar(newAvatar)
         .then(result => {
           setCurrentUser(result);
           closeAllPopups();
+          resolve();
         })
         .catch(error => console.log(error))
         .finally(() => setRenderLoading(false))
-    )
+    })
   }
 
 
