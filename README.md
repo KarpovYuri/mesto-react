@@ -40,4 +40,4 @@
 
 **Mesto Russia**
 
-* [ссылка на GitHub Pages](https://yurick78.github.io/mesto-react/index.html)
+* [ссылка на GitHub Pages](https://KarpovYuri.github.io/mesto-react/index.html)
